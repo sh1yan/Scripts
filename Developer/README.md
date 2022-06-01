@@ -1,4 +1,4 @@
-Este script automatiza explotación de la máquina Developèr
+Este script automatiza explotación de la máquina Developer
 
 · Para usar el script necesitas tener instalada la libreria pwntools
 
