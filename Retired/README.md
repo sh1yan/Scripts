@@ -10,4 +10,4 @@ Estos script automatizan la explotación de la máquina Retired
 
 · Para el segundo (autopwn) simplemente ejecutamos el script con python3 y nos da una shell como root
 
-<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/ar.png">
+<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/rr.png">
