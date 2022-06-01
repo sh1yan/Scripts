@@ -6,4 +6,4 @@ Este script automatiza explotación de la máquina Meta
 
 · Solo tenemos que ejecutar el script con python3 y obtenemos shell como root
 
-<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/mt.png">
+<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/ma.png">
