@@ -4,7 +4,7 @@ Estos scripts automatizan la explotación de la máquina Noter
 
     pip install pwntools
 
-· Para el primero (fuerza bruta de usuarios) ejecutamos con python3 pasandole un diccionario con usuarios y detecta los que sean válidos
+· Para el primero (fuerza bruta de usuarios) ejecutamos con python3 pasandole un diccionario con usuarios y detecta los que sean válidos en la web
 
 <img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/user.png">
 
