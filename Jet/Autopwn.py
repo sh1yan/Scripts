@@ -1,6 +1,7 @@
 import requests
 try:
     from pwn import *
+    os.system("echo '10.13.37.10 www.securewebinc.jet' >> /etc/hosts")
     print("\n[\033[1;32m+\033[1;37m] Autopwn Jet ~ GatoGamer1155\n")
 except:
     print('\n[\033[1;31m!\033[1;37m] El script necesita privilegios de root\n\n[\033[1;31m!\033[1;37m] Recuerda tener instalada la libreria pwntools\n')
@@ -9,8 +10,6 @@ except:
 if len(sys.argv) < 2:
     print(f"[\033[1;31m-\033[1;37m] Uso: python3 {sys.argv[0]} <ip>\n")
     exit(1)
-
-os.system("echo '10.13.37.10 www.securewebinc.jet' >> /etc/hosts")
 
 target = "http://www.securewebinc.jet/dirb_safe_dir_rf9EmcEIx/admin/"
 session = requests.Session()
