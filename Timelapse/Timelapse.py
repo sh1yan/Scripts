@@ -4,7 +4,6 @@ import os
 print("\n[\033[1;32m+\033[1;37m] Autopwn Timelapse ~ GatoGamer1155")
 os.system("echo '10.10.11.152 timelapse.htb' >> /etc/hosts")
 
-
 def base(domain):
     search_base = ""
     base = domain.split(".")
