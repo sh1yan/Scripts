@@ -1,4 +1,4 @@
-Estis scripts automatiza la explotación de el fortress Jet
+Estos scripts automatizan la explotación de el fortress Jet
 
 · Para usar estos scripts necesitas tener instalada la libreria pwntools
 
