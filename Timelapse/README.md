@@ -1,10 +1,6 @@
 Este script automatiza explotación de la máquina Timelapse
 
-· Para usar el script necesitas tener instalada la libreria pwntools
-
-    pip install pwntools
-
-· Además tener instalado evil-winrm
+· Para usar el script necesitas tener instalado evil-winrm
 
     gem install evil-winrm
 
