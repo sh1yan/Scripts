@@ -16,3 +16,10 @@ Estos scripts automatizan la explotación de el fortress Jet
 
 <img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/alexj.png">
 
+· Para el tercero solo ejecutar con python3 y obtenemos shell como membermanager
+
+<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/memberj.png">
+
+· Para el cuarto solo ejecutar con python3 y obtenemos shell como memo
+
+<img src="https://raw.githubusercontent.com/GatoGamer1155/Imagenes-Repositorios/main/memoj.png">
