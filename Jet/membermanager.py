@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from pwn import *
 
 print("\n[\033[1;32m+\033[1;37m] Jet membermanager ~ GatoGamer1155\n")
