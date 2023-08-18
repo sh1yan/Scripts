@@ -43,5 +43,8 @@ def checksec(filename):
     if lief.is_pe(filename):
         results(binary.optional_header.dll_characteristics_lists)
 
-checksec(sys.argv[1])
-
+if len(sys.argv):
+    print("[" + colorama.Fore.RED + "-" + colorama.Style.RESET_ALL + f"] Usage: python3 {sys.argv[0]} <file>")
+    sys.exit(1)
+else:
+    checksec(sys.argv[1])
