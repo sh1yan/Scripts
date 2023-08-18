@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from pwn import log
 import lief, colorama, sys
 
 def print_color(name, result):
@@ -43,7 +42,7 @@ def checksec(filename):
     if lief.is_pe(filename):
         results(binary.optional_header.dll_characteristics_lists)
 
-if len(sys.argv):
+if len(sys.argv) < 2:
     print("[" + colorama.Fore.RED + "-" + colorama.Style.RESET_ALL + f"] Usage: python3 {sys.argv[0]} <file>")
     sys.exit(1)
 else:
